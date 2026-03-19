@@ -7,8 +7,8 @@
 // @match        https://www.torn.com/factions.php*
 // @run-at       document-end
 // @grant        none
-// @updateURL    
-// @downloadURL  
+// @updateURL    https://github.com/susbamogus/jkyillum.github.io/blob/main/script.js
+// @downloadURL  https://github.com/susbamogus/jkyillum.github.io/blob/main/script.js
 // @license      GPL-3.0
 
 // ==/UserScript==
