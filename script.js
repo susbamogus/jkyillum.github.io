@@ -157,7 +157,7 @@
         rolesData.forEach(rd => {
             const cpr = rd.cpr;
             if (!Number.isFinite(cpr) || cpr < cfg.redThreshold) {
-                addMessage(rd.el, `❌Ineligible: CPR under ${cfg.redThreshold}% baseline requirement`, 'red');
+                addMessage(rd.el, `❌Ineligible: CPR under ${cfg.redThreshold}% requirement`, 'red');
             }
         });
 
@@ -177,7 +177,7 @@
             if (isHighWeight && excessCPR < 5) {
                 // Slash score by 90% for warned high weight roles
                 score *= 0.1;
-                addMessage(rd.el, `⚠️ High weight - you may still join`, 'orange');
+                addMessage(rd.el, `⚠️ Eligible (High Weight)`, 'orange');
             }
 
             if (!best || score > best.score) {
@@ -191,7 +191,7 @@
         });
 
         if (best) {
-            addMessage(best.el,`✅ Best Role!\n${best.roleName} is recommended :)`,'green');
+            addMessage(best.el,`✅ Recommended!`,'green');
         }
     }
 
