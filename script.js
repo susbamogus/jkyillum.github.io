@@ -175,7 +175,6 @@
             let score = excessCPR * weight;
 
             if (isHighWeight && excessCPR < 5) {
-                // Slash score by 90% for warned high weight roles
                 score *= 0.1;
                 addMessage(rd.el, `⚠️ Eligible (High Weight)`, 'orange');
             }
@@ -195,7 +194,7 @@
         }
     }
 
-    function processCrimes() {
+     function processCrimes() {
         if (isProcessing) return;
         isProcessing = true;
 
@@ -215,8 +214,8 @@
                 processedContainers.add(container);
 
                 const roleEls = container.querySelectorAll('span.title___UqFNy');
-                const roleNames = [];
-                const rolesData = [];
+                const allRoleNames = [];
+                const openRolesData = [];
 
                 roleEls.forEach(labelEl => {
                     const headerBtn = labelEl.closest('button.slotHeader___K2BS_');
@@ -225,29 +224,25 @@
                     const wrapperSlot = headerBtn.closest('div.wrapper___Lpz_D');
                     if (!wrapperSlot) return;
 
-                    const joinBtn = wrapperSlot.querySelector('.joinButton___Ikoyy');
-                    if (!joinBtn) return;
-
-                    const cprEl = headerBtn.querySelector('div.successChance___ddHsR');
-                    if (!cprEl) return;
-
                     const roleName = labelEl.textContent.trim();
-                    const cpr = parseCPR(cprEl.textContent);
-
-                    roleNames.push(roleName);
-                    rolesData.push({ roleName, cpr, el: wrapperSlot });
+                    const cprEl = headerBtn.querySelector('div.successChance___ddHsR');
+                    const cpr = cprEl ? parseCPR(cprEl.textContent) : NaN;
+                    allRoleNames.push(roleName);
+                    const joinBtn = wrapperSlot.querySelector('.joinButton___Ikoyy');
+                    if (joinBtn) {
+                        openRolesData.push({ roleName, cpr, el: wrapperSlot });
+                    }
                 });
 
-                const crimeName = detectCrimeType(roleNames);
-                if (crimeName) {
-                    evaluateCrime(crimeName, rolesData);
+                const crimeName = detectCrimeType(allRoleNames);
+                if (crimeName && openRolesData.length > 0) {
+                    evaluateCrime(crimeName, openRolesData);
                 }
             });
         } finally {
             isProcessing = false;
         }
     }
-
     function onRelevantPage() {
         return location.href.includes('factions.php') && location.href.includes('tab=crimes');
     }
