@@ -7,8 +7,8 @@
 // @match        https://www.torn.com/factions.php*
 // @run-at       document-end
 // @grant        none
-// @updateURL    https://github.com/susbamogus/jkyillum.github.io/blob/main/script.js
-// @downloadURL  https://github.com/susbamogus/jkyillum.github.io/blob/main/script.js
+// @updateURL    https://github.com/susbamogus/jkyillum.github.io/blob/main/script.user.js
+// @downloadURL  https://github.com/susbamogus/jkyillum.github.io/blob/main/script.user.js
 // @license      GPL-3.0
 
 // ==/UserScript==
@@ -157,7 +157,7 @@
         rolesData.forEach(rd => {
             const cpr = rd.cpr;
             if (!Number.isFinite(cpr) || cpr < cfg.redThreshold) {
-                addMessage(rd.el, `❌Ineligible: CPR under ${cfg.redThreshold}% requirement`, 'red');
+                addMessage(rd.el, `❌Ineligible (${cfg.redThreshold}% needed)`, 'red');
             }
         });
 
